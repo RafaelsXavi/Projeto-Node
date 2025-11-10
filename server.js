@@ -6,9 +6,15 @@ const prisma = new PrismaClient();
 
 const app = express();
 
+const corsOptions = {
+  origin: 'http://localhost:5174', // Permite apenas essa origem
+  methods: 'GET,POST,PUT,DELETE',
+  allowedHeaders: 'Content-Type,Authorization'
+};
+app.use(cors(corsOptions));
+
 app.use(express.json());
 
-app.use(cors());
 
 app.get('/usuarios', async (req, res) => {
 
@@ -52,8 +58,10 @@ app.delete('/usuarios/:id', async (req, res) => {
     res.status(200).json({ message: 'Usuário deletado com sucesso!' })
 });
 
-app.listen(3000);
+app.listen(3000, () => {
+    console.log('Servidor rodando na porta 3000');
+});
 /*
--rafaelxavi277_db_user
--Y3bHSlAYBAN6ohOj
+-rafaelx277_db_user
+-s0CErvaLYkoru728
 -*/
